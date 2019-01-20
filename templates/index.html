@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta charset="UTF-8">
+    <title>&#x6559;&#x52A1;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;</title>
+    <script src="/static/js/jqueryjs.min.js"></script>
+{##}
+    <link rel="stylesheet" href="{% static 'css/bootstrapplug.min.css' %}" />
+<script src="/static/js/bootstrapplug.min.js"></script>
+{##}
+    <link rel="stylesheet" href="{% static 'css/login.min.css' %}" />
+
+</head>
+<body>
+    <div class="container jw-login-page">
+        <div class="navbar">
+            <div class="row">
+                <div class="col-md-6"><img src="{% static 'img/logo.png' %}"><span class="title">&#x6559;&#x52A1;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;</span></div>
+                <div class="col-md-6">
+                    <ul class="language pull-right">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="login-div">
+            <div class="col-md-8 p-l0"><img class="img-responsive" src="{% static 'img/banner-pic.png' %}"></div>
+            <div class="col-md-4 form">
+                <h4 class="sm-title">&#x7528;&#x6237;&#x767B;&#x5F55;</h4>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="" />
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><img src="{% static 'img/user.png' %}"></div>
+                                <input type="text" class="form-control" maxlength="20" placeholder="&#x8D26;&#x53F7;" autofocus data-val="true" data-val-required="The username field is required." id="username" name="username" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><img src="{% static 'img/pwd.png' %}"></div>
+                                <input type="password" class="form-control" maxlength="20" placeholder="&#x5BC6;&#x7801;" id="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button id="btnLogin" type="button" class="btn btn-primary btn-block btn-zfl">&#x767B;&#x5F55;</button>
+                            <a href="http://zf.ahu.cn/IdentityServer/Account/RetrievePassword" target="_blank" class="forget-pwd pull-right">&#x5FD8;&#x8BB0;&#x5BC6;&#x7801;?</a>
+                        </div>
+                    <input name="__RequestVerificationToken" type="hidden" value="CfDJ8DyGL3iiiFtOgy_BganeiZ98ax7Wy48ObhJxUs97DeQ1lBRb5RIkdD_lh5edinyNclLXMrqO_Dp95-fPfULPvDh1JIGV7Y7_ELeBzgIUt8_1kJTJoFrOFk5bnVbu59oDsXgK6ruUkDog7JyuWkcm9Ms" /></form>
+                                    <div class="form-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-inline">
+                                        <li>
+                                            <a class="btn btn-default" href="http://zf.ahu.cn/IdentityServer/External/Challenge?provider=WeixinSm">
+                                                &#x5FAE;&#x4FE1;&#x626B;&#x7801;
+                                            </a>
+                                        </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p class="text-center">&#x7248;&#x6743;&#x6240;&#x6709;&#xA9; Copyright 1999-2020 &#x6B63;&#x65B9;&#x8F6F;&#x4EF6;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;&#x3000;&#x3000;&#x4E2D;&#x56FD;&#xB7;&#x676D;&#x5DDE;&#x7D2B;&#x971E;&#x8857;176&#x53F7;&#x4E92;&#x8054;&#x7F51;&#x521B;&#x65B0;&#x521B;&#x4E1A;&#x56ED;2&#x53F7;&#x697C; </p>
+        </div>
+    </div>
+    <link rel="stylesheet" href="{% static 'css/bootboxhtmlplug.min.css' %}" />
+    <script src="/static/js/bootboxhtmlplug.min.js"></script>
+
+    <script src="/static/js/rsajs.min.js"></script>
+
+    <script src="/static/js/login.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+
+    <script src="/static/js/xtglbasejs.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/error.min.css' %}" />
+
+    <script>
+        {#document.domain = 'http://zf.ahu.cn';#}
+        var keyurl = 'http://zf.ahu.cn/IdentityServer/Account/getPublicKey';
+        var nametip = "&#x8BF7;&#x8F93;&#x5165;&#x7528;&#x6237;&#x540D;!";
+        var pwdtip = "&#x8BF7;&#x8F93;&#x5165;&#x5BC6;&#x7801;!";
+        //$(function () {
+        //    detectOS();
+        //});
+        //if (!navigator.cookieEnabled) {
+        //    $.alert("请启用cookie，否则将不能登陆");
+        //}
+    </script>
+</body>
+</html>
