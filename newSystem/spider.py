@@ -10,8 +10,6 @@ from pyquery import PyQuery as pq
 class Loginer():
 
     def __init__(self):
-        # self.user = str(user)
-        # self.passwd = str(passwd)
         self.session = requests.session()
 
     def getPublicKey(self):
@@ -41,10 +39,20 @@ class Loginer():
         response_json = json.dumps(_response_json)
         return response_json
 
+    def reflushToken(self):
+        print('RequestVerificationToken1:', self.RequestVerificationToken)
+        reflushTokenUrl = 'http://zf.ahu.cn/IdentityServer/Account/gslogin'
+        res3 = self.session.get(reflushTokenUrl)
+        doc1 = pq(res3.text)
+        __RequestVerificationToken = doc1(
+            'body > div > div.login-div > div.col-md-4.form > form > input[type="hidden"]:nth-child(5)').attr("value")
+        self.RequestVerificationToken = __RequestVerificationToken
+        print('RequestVerificationToken2:', self.RequestVerificationToken)
+
 
     def post_data(self, username, password):
         # try:
-        url = 'http://zf.ahu.cn/IdentityServer/Account/Login'
+        postDataToLoginUrl = 'http://zf.ahu.cn/IdentityServer/Account/Login'
         header = {
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
             'Accept-Encoding': 'gzip, deflate',
@@ -65,15 +73,12 @@ class Loginer():
             '__RequestVerificationToken': self.RequestVerificationToken,
             'password': password
         }
-        print(data)
-        respose = self.session.post(url, headers=header, data=data)
-        print(respose.status_code)
-        print(respose.text)
+        # print(data)
+        postDataToLoginUrl_respose = self.session.post(postDataToLoginUrl, headers=header, data=data)
+        # print(postDataToLoginUrl_respose.status_code)
+        # print(postDataToLoginUrl_respose.text)
         with open('test.html', 'wb') as f:
-            f.write(respose.content)
-        print(111111)
-        # self.cookie = self.req.request.headers['cookie']
-        ppot = r'用户名或密码不正确'
+            f.write(postDataToLoginUrl_respose.content)
 
 
 
@@ -82,55 +87,43 @@ class Grades(Loginer):
 
     def __init__(self):
         super().__init__()
-        # self.year = year
-        # self.term = term
 
 
     def post_gradedata(self):
-        # try:
-        url = 'http://zf.ahu.cn/cjgl/Student/CJCX/KCCJCX'
+        getGradeUrl = 'http://zf.ahu.cn/cjgl/Student/CJCX/KCCJCX'
+        getGrade_response = self.session.get(getGradeUrl)
+        print(getGrade_response.status_code)
+        with open('test1.html', 'wb') as f:
+            f.write(getGrade_response.content)
+        getGradeDetailUrl = 'http://zf.ahu.cn/Cjgl/student/CJCX/KCXXXX'
+        self.reflushToken()
         headers = {
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            '__RequestVerificationToken': self.RequestVerificationToken,
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
             'Accept-Encoding': 'gzip, deflate',
             'Accept-Language': 'zh-CN,zh;q=0.9',
-            'Cache-Control': 'max-age=0',
             'Connection': 'keep-alive',
+            'Content-Length': '101',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
             'Host': 'zf.ahu.cn',
-            'Referer': 'http://zf.ahu.cn/Authcenter/Home/index_student',
-            'Upgrade-Insecure-Requests': '1',
+            'Referer': 'http://zf.ahu.cn/Cjgl/Student/CJCX/KCCJCX',
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+            'X-Requested-With': 'XMLHttpRequest',
         }
-        res1 = self.session.get(url)
-        print(res1.status_code)
-        with open('test1.html', 'wb') as f:
-            f.write(res1.content)
+        data = {
+            'send_by_bootstrap_table': 'true',
+            'XN': '2018-2019',
+            'XQ': '1',
+            'sortName': 'XKKH',
+            'sortOrder': 'asc',
+            'showCount': '30',
+            'currentPage': '1',
+        }
+        getGradeDetail_response = self.session.post(getGradeDetailUrl, data=data, headers=headers)
+        print(getGradeDetail_response.status_code)
+        with open('test2.html', 'wb') as f:
+            f.write(getGradeDetail_response.content)
 
-            # data = {'_search': 'false',
-            #         'nd': int(time.time()),
-            #         'queryModel.currentPage': '1',
-            #         'queryModel.showCount': '15',
-            #         'queryModel.sortName': '',
-            #         'queryModel.sortOrder': 'asc',
-            #         'time': '0',
-            #         'xnm': self.year,
-            #         'xqm': self.term
-            #         }
-            # req_1 = self.sessions.post(self.url1, data=data, headers=self.header)
-            # req_2 = self.sessions.post(self.url2, data=data, headers=self.header)
-            # self.req_2 = req_2.json()
-        # except:
-        #     print('获取失败,请重试...')
-        #     sys.exit()
-
-
-
-
-# if __name__ == '__main__':
-#     user = 'E31614002'
-#     passwd = 'wang921207'
-#     myGrade = Grades(user, passwd)
-#     myGrade.getPublicKey()
-#     myGrade.post_data()
 
 
 
