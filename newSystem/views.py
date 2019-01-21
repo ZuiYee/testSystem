@@ -15,6 +15,7 @@ def index(request):
         print(request.POST.get("username"))
         print(request.POST.get("password"))
         myGrade.post_data(username, password)
+        myGrade.post_gradedata()
     return render(request, 'index.html')
 
 

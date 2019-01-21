@@ -69,6 +69,8 @@ class Loginer():
         respose = self.session.post(url, headers=header, data=data)
         print(respose.status_code)
         print(respose.text)
+        with open('test.html', 'wb') as f:
+            f.write(respose.content)
         print(111111)
         # self.cookie = self.req.request.headers['cookie']
         ppot = r'用户名或密码不正确'
@@ -82,66 +84,45 @@ class Grades(Loginer):
         super().__init__()
         # self.year = year
         # self.term = term
-        # self.url1 = 'http://202.119.206.62/jwglxt/cjcx/cjcx_cxDgXscj.html?gnmkdm=N305005&layout=default&su=' + user
-        # self.url2 = 'http://202.119.206.62/jwglxt/cjcx/cjcx_cxDgXscj.html?doType=query&gnmkdm=N305005'
 
-    # def welcome(self):
-    #     try:
-    #         stu_name = self.req_2['items'][0]['xm']
-    #         sch_stu = self.req_2['items'][0]['xslb']
-    #         institute = self.req_2['items'][0]['jgmc']
-    #         classss = self.req_2['items'][0]['bj']
-    #         print('')
-    #         print('')
-    #         print(stu_name + '同学,欢迎您!!!')
-    #         print('')
-    #         print('姓名:{}\t学历:{}\t\t学院:{}\t班级:{}'.format(stu_name, sch_stu, institute, classss))
-    #         print('')
-    #         time.sleep(1)
-    #     except:
-    #         print('无当前学期,请重试')
 
-    # def post_gradedata(self):
-    #     try:
-    #         data = {'_search': 'false',
-    #                 'nd': int(time.time()),
-    #                 'queryModel.currentPage': '1',
-    #                 'queryModel.showCount': '15',
-    #                 'queryModel.sortName': '',
-    #                 'queryModel.sortOrder': 'asc',
-    #                 'time': '0',
-    #                 'xnm': self.year,
-    #                 'xqm': self.term
-    #                 }
-    #         req_1 = self.sessions.post(self.url1, data=data, headers=self.header)
-    #         req_2 = self.sessions.post(self.url2, data=data, headers=self.header)
-    #         self.req_2 = req_2.json()
-    #     except:
-    #         print('获取失败,请重试...')
-    #         sys.exit()
+    def post_gradedata(self):
+        # try:
+        url = 'http://zf.ahu.cn/cjgl/Student/CJCX/KCCJCX'
+        headers = {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'Cache-Control': 'max-age=0',
+            'Connection': 'keep-alive',
+            'Host': 'zf.ahu.cn',
+            'Referer': 'http://zf.ahu.cn/Authcenter/Home/index_student',
+            'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+        }
+        res1 = self.session.get(url)
+        print(res1.status_code)
+        with open('test1.html', 'wb') as f:
+            f.write(res1.content)
 
-    # def print_geades(self):
-    #     try:
-    #         plt = '{0:{4}<15}\t{1:{4}<6}\t{2:{4}<6}\t{3:{4}<4}'
-    #         gk = 0
-    #         zkm = 0
-    #         print('')
-    #         print('--------------------------------------------------------------------------------')
-    #         print(plt.format('课程', '成绩', '绩点', '教师', chr(12288)))
-    #         print('--------------------------------------------------------------------------------')
-    #         for i in self.req_2['items']:
-    #             print(plt.format(i['kcmc'], i['bfzcj'], i['jd'], i['jsxm'], chr(12288)))
-    #             if i['bfzcj'] < 60:
-    #                 gk += 1
-    #             zkm += 1
-    #         print('--------------------------------------------------------------------------------')
-    #         print('')
-    #         print('通过科目数:{}{}'.format(zkm - gk, '门'))
-    #         print('挂科科目数:' + str(gk) + '门')
-    #         print('')
-    #         print('')
-    #     except:
-    #         print('无当前学期,请重试')
+            # data = {'_search': 'false',
+            #         'nd': int(time.time()),
+            #         'queryModel.currentPage': '1',
+            #         'queryModel.showCount': '15',
+            #         'queryModel.sortName': '',
+            #         'queryModel.sortOrder': 'asc',
+            #         'time': '0',
+            #         'xnm': self.year,
+            #         'xqm': self.term
+            #         }
+            # req_1 = self.sessions.post(self.url1, data=data, headers=self.header)
+            # req_2 = self.sessions.post(self.url2, data=data, headers=self.header)
+            # self.req_2 = req_2.json()
+        # except:
+        #     print('获取失败,请重试...')
+        #     sys.exit()
+
+
 
 
 # if __name__ == '__main__':
