@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from django.http import HttpResponse
 import requests
-import time
 import json
-import sys
 from pyquery import PyQuery as pq
 
 class Loginer():
